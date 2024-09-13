@@ -44,3 +44,7 @@ test-args = [
 
 [package.metadata.bootimage]
 test-timeout = 180          # (in seconds)
+
+[[test]]
+name = "should_panic"
+harness = false
