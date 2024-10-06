@@ -17,24 +17,20 @@ panic = "abort" # disable stack unwinding on panic
 bootloader = "0.9" #while i dont make a native bootloader bootimage will have to do
 [dependencies]
 volatile = "0.2.6" #reads invalid ASCII and turns it into readable code
+spin = "0.5.2" #So we can use Spinlock to block threads already in use
+x86_64 = "0.14.2"
+uart_16550 = "0.2.0"
+
 
 [dependencies.lazy_static] #To solve one-time initialization of statics with non-const functions being a problem
 version = "1.0"
 features = ["spin_no_std"]
 
-[dependencies] #So we can use Spinlock to block threads already in use
-spin = "0.5.2"
-
-[dependencies]
-x86_64 = "0.14.2"
 
 
 [package.metadata.bootimage]
 test-args = […]
 test-success-exit-code = 33 
-
-[dependencies]
-uart_16550 = "0.2.0"
 
 [package.metadata.bootimage]
 test-args = [

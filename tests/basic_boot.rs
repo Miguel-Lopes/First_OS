@@ -22,15 +22,15 @@ fn panic(info: &PanicInfo) -> ! {
     loop {}
 }
 
-#![test_runner(blog_os::test_runner)]
+#![test_runner(first_os::test_runner)]
 
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
-    blog_os::test_panic_handler(info)
+    first_os::test_panic_handler(info)
 }
 
 
-use blog_os::println;
+use first_os::println;
 
 #[test_case]
 fn test_println() {

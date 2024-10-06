@@ -2,23 +2,23 @@
 #![no_std]
 #![no_main]
 
-use blog_os::{exit_qemu, QemuExitCode, serial_println};
+use first_os::{exit_qemu, QemuExitCode, serial_println};
 use x86_64::structures::idt::InterruptStackFrame;
 use core::panic::PanicInfo;
-use blog_os::serial_print;
+use first_os::serial_print;
 use lazy_static::lazy_static;
 use x86_64::structures::idt::InterruptDescriptorTable;
 
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
-    blog_os::test_panic_handler(info)
+    first_os::test_panic_handler(info)
 }
 
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
     serial_print!("stack_overflow::stack_overflow...\t");
 
-    blog_os::gdt::init();
+    first_os::gdt::init();
     init_test_idt();
 
     // trigger a stack overflow
@@ -40,7 +40,7 @@ lazy_static! {
         unsafe {
             idt.double_fault
                 .set_handler_fn(test_double_fault_handler)
-                .set_stack_index(blog_os::gdt::DOUBLE_FAULT_IST_INDEX);
+                .set_stack_index(first_os::gdt::DOUBLE_FAULT_IST_INDEX);
         }
 
         idt
